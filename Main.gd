@@ -1,16 +1,37 @@
 extends Control
 
+onready var tabs = $TabContainer
+onready var file_editor =  preload("res://FileEditor.tscn")
+onready var active_editor_id = 0
 
 func _ready():
-	pass
+	add_keybind("new_tab", KEY_T)
+	
 
-func _process(delta):
-	pass
+func _process(_delta):
+	if Input.is_action_just_pressed("new_tab"):
+		new_tab()
+
+	
+	
+func add_keybind(action,key_code):
+	InputMap.add_action(action)
+	var event = InputEventKey.new()
+	event.scancode = key_code
+	event.control = true
+	InputMap.action_add_event(action,event)
+
 	
 # Tab control functions 
 # add a TextEdit node to tab container
 func new_tab():
-	pass
+	var editor_count = tabs.get_child_count()
+	var new_editor = file_editor.instance()
+	new_editor.name = "Untitled" + str(editor_count)
+	tabs.add_child(new_editor)
+	tabs.current_tab = editor_count
+	new_editor.grab_focus()
+	
 
 # remove TextEdit node from tab container
 # ask to save changes before closing
@@ -47,3 +68,7 @@ func pref_save():
 # restore preferences to defaults 
 func pref_restore():
 	pass
+
+
+func _on_TabContainer_tab_selected(tab):
+	active_editor_id = tab

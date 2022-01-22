@@ -13,6 +13,8 @@ func _ready():
 	self.show_line_numbers = true
 	self.size_flags_horizontal = SIZE_EXPAND_FILL
 	self.size_flags_vertical = SIZE_EXPAND_FILL
+	self.minimap_draw = true
+	
 	
 	var color_map = {
 		"keyword" : Color.aqua,
