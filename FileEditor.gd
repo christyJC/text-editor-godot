@@ -1,46 +1,90 @@
 """
 File Editor Settings
 Author: Jake Christy
-Desc: Sets up a TextEdit node for porgamming
+Desc: Sets up a TextEdit node for programming
 """
 extends TextEdit
+
+# TODO: finish adding keywords for each language
+
 
 func _ready():
 	self.syntax_highlighting = true
 	self.show_line_numbers = true
 	self.size_flags_horizontal = SIZE_EXPAND_FILL
 	self.size_flags_vertical = SIZE_EXPAND_FILL
+	
+	var color_map = {
+		"keyword" : Color.aqua,
+		"string" : Color.coral,
+		"char" : Color.forestgreen,
+		"func" : Color.aquamarine,
+		"number" : Color.magenta,
+		"comment" : Color.darkgray
+	}
+	
+	python_syntax(color_map)
 
 
-func c_syntax():
-	pass
+func c_syntax(color_map):
+	var keyword_list = ['int','long','float','double','struct','typedef','static']
+	keywords_color(keyword_list,color_map["keyword"])
+	
+	comment_color('//','/*','*/',color_map["comment"])
+	
+	string_color(color_map["string"])
+	char_color(color_map["char"])
+	func_color(color_map["func"])
+	number_color(color_map["number"])
+	
 
-func java_syntax():
-	pass
+func java_syntax(color_map):
+	var keyword_list = ['int','long','float','double','public','private','protected','class','static']
+	keywords_color(keyword_list,color_map["keyword"])
+	
+	comment_color('//','/*','*/',color_map["comment"])
+	
+	string_color(color_map["string"])
+	char_color(color_map["char"])
+	func_color(color_map["func"])
+	number_color(color_map["number"])
 
-func python_syntax():
-	pass
+func python_syntax(color_map):
+	var keyword_list = ['def','class','import']
+	keywords_color(keyword_list,color_map["keyword"])
+	
+	var condition_list = ['if','elif','else','is','and','not','in']
+	keywords_color(condition_list,color_map["keyword"])
+	
+	keywords_color(keyword_list,color_map["keyword"])
+	comment_color('#','"""','"""',color_map["comment"])
+	string_color(color_map["string"])
+	char_color(color_map["char"])
+	func_color(color_map["func"])
+	number_color(color_map["number"])
 
 # set color for all items in list
-func keyword_color(keyword_list,color):
-	pass
+func keywords_color(keyword_list,color):
+	for keyword in keyword_list:
+		self.add_keyword_color(keyword,color)
 
 # set color of "strings"
 func string_color(color):
-	pass
+	self.add_color_region('"','"',color)
 
 # set color of char 'a'
 func char_color(color):
-	pass
+	self.add_color_region('\'','\'',color)
 
 # set color of functions foo()
 func func_color(color):
-	pass
+	self.add_color_override("function_color",color)
 	
 # set color of numbers 124
 func number_color(color):
-	pass
+	self.add_color_override("number_color",color)
 
 # set color of comments //,/*,*/
-func comment_color(single,start_block,end_block,color):
-	pass
+func comment_color(start_single,start_block,end_block,color):
+	self.add_color_region(start_single,'',color,true)
+	self.add_color_region(start_block,end_block,color,true)
