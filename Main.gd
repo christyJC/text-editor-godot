@@ -2,12 +2,14 @@ extends Control
 
 onready var tabs = $TabContainer
 onready var file_editor =  preload("res://FileEditor.tscn")
+onready var file_script = preload("res://FileEditor.gd")
 
 func _ready():
 	add_keybind_ctrl("new_tab", KEY_T)
 	add_keybind_ctrl("close_tab",KEY_W)
 	add_keybind_ctrl("next_tab",KEY_RIGHT)
 	add_keybind_ctrl("prev_tab",KEY_LEFT)
+	add_keybind_ctrl("open_file",KEY_O)
 	
 
 func _process(_delta):
@@ -19,6 +21,9 @@ func _process(_delta):
 		next_tab(tabs)
 	if Input.is_action_just_pressed("prev_tab"):
 		prev_tab(tabs)
+		
+	if Input.is_action_just_pressed("open_file"):
+		open_file()
 
 # adds input for Ctrl + key_code
 func add_keybind_ctrl(action,key_code):
@@ -72,6 +77,7 @@ func prev_tab(container):
 		else:
 			container.current_tab = curr_tab - 1 # move left
 
+# check that at least one tab exists
 func tabs_exist(container):
 	if container.get_tab_count() > 0:
 		return true
@@ -81,7 +87,45 @@ func tabs_exist(container):
 # File control functions
 # show a file dialog, then put text into current TextEdit
 func open_file():
-	pass
+	$OpenDialog.popup()
+
+func _on_OpenDialog_file_selected(path):
+	var file = File.new()
+	file.open(path,1) # open file at path in read only mode
+	
+	# get the current editor 
+	var curr_id = tabs.current_tab 
+	var curr_editor = tabs.get_child(curr_id)
+	# put the file contents in the current TextEdit
+	curr_editor.text = file.get_as_text()
+	
+	set_highlight(path,curr_editor)
+	
+	
+#/home/jakec/Documents/TextEditor/FileEditor.gd
+	file.close()
+
+func set_highlight(path,editor):
+	var c_regex = RegEx.new()
+	var java_regex = RegEx.new()
+	var python_regex = RegEx.new()
+	
+	c_regex.compile("(\\.c)|(\\.h)$")
+	var c_result = c_regex.search(path)
+	if c_result:
+		editor.c_default()
+	
+	java_regex.compile("\\.java$")
+	var java_result = java_regex.search(path)
+	if java_result:
+		editor.java_default()
+	
+	python_regex.compile("\\.py$")
+	var python_result = python_regex.search(path)
+	if python_result:
+		editor.python_default()
+
+
 
 # save changes to current file
 func save_file():
@@ -100,4 +144,5 @@ func pref_save():
 # restore preferences to defaults 
 func pref_restore():
 	pass
+
 

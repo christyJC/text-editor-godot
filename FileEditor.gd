@@ -6,7 +6,14 @@ Desc: Sets up a TextEdit node for programming
 extends TextEdit
 
 # TODO: finish adding keywords for each language
-
+var default_color_map = {
+		"keyword" : Color.aqua,
+		"string" : Color.coral,
+		"char" : Color.forestgreen,
+		"func" : Color.aquamarine,
+		"number" : Color.magenta,
+		"comment" : Color.darkgray
+}
 
 func _ready():
 	self.syntax_highlighting = true
@@ -16,17 +23,12 @@ func _ready():
 	self.minimap_draw = true
 	
 	
-	var color_map = {
-		"keyword" : Color.aqua,
-		"string" : Color.coral,
-		"char" : Color.forestgreen,
-		"func" : Color.aquamarine,
-		"number" : Color.magenta,
-		"comment" : Color.darkgray
-	}
-	
-	python_syntax(color_map)
 
+	
+	
+	
+func c_default():
+	c_syntax(default_color_map)
 
 func c_syntax(color_map):
 	var keyword_list = ['int','long','float','double','struct','typedef','static']
@@ -39,6 +41,8 @@ func c_syntax(color_map):
 	func_color(color_map["func"])
 	number_color(color_map["number"])
 	
+func java_default():
+	java_syntax(default_color_map)
 
 func java_syntax(color_map):
 	var keyword_list = ['int','long','float','double','public','private','protected','class','static']
@@ -50,6 +54,9 @@ func java_syntax(color_map):
 	char_color(color_map["char"])
 	func_color(color_map["func"])
 	number_color(color_map["number"])
+	
+func python_default():
+	python_syntax(default_color_map)
 
 func python_syntax(color_map):
 	var keyword_list = ['def','class','import']
