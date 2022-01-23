@@ -106,26 +106,17 @@ func _on_OpenDialog_file_selected(path):
 	file.close()
 
 func set_highlight(path,editor):
-	var c_regex = RegEx.new()
-	var java_regex = RegEx.new()
-	var python_regex = RegEx.new()
-	
-	c_regex.compile("(\\.c)|(\\.h)$")
-	var c_result = c_regex.search(path)
-	if c_result:
-		editor.c_default()
-	
-	java_regex.compile("\\.java$")
-	var java_result = java_regex.search(path)
-	if java_result:
-		editor.java_default()
-	
-	python_regex.compile("\\.py$")
-	var python_result = python_regex.search(path)
-	if python_result:
-		editor.python_default()
-
-
+	var ext = path.get_extension()
+	match ext:
+		"c":
+			editor.c_default()
+		"h":
+			editor.c_default()
+			
+		"java":
+			editor.java_default()
+		"py":
+			editor.python_default()
 
 # save changes to current file
 func save_file():
