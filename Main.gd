@@ -3,7 +3,12 @@ extends Control
 onready var tabs = $TabContainer
 onready var file_editor =  preload("res://FileEditor.tscn")
 onready var file_script = preload("res://FileEditor.gd")
-onready var icon_file = preload("res://icon.png")
+
+onready var c_source_icon = preload("res://c_file.png")
+onready var c_header_icon = preload("res://c_header.png")
+onready var java_icon = preload("res://java_file.png")
+onready var python_icon = preload("res://python_file.png")
+
 
 func _ready():
 	add_keybind_ctrl("new_tab", KEY_T)
@@ -103,14 +108,13 @@ func _on_OpenDialog_file_selected(path):
 	
 	var file_name = path.get_file() # get file name (words.txt)
 	var file_ext = file_name.get_extension() # get extension (.txt)
-	var no_ext_name = file_name.trim_suffix("."+file_ext) # get file name with extension (words)
-	
+	var file_no_dots = file_name.replace(".","_")
+	#string replace(what,forwhat)
 	set_highlight(file_ext,curr_editor) # set syntac highlighting base on extension
-	curr_editor.name = no_ext_name # rename file editor to name of file
-	
-	tabs.set_tab_icon(curr_id,icon_file) # TODO create function do this base on extension
-	#TODO fix icon size changing size of tab
-	#TODO create icons for each file extension
+	curr_editor.name = file_no_dots # rename file editor to name of file
+	set_file_icon(file_ext,tabs,curr_id)
+
+	#TODO fix 
 
 func set_highlight(extension,editor):
 	match extension:
@@ -124,6 +128,18 @@ func set_highlight(extension,editor):
 		"py":
 			editor.python_default()
 
+func set_file_icon(extension,container,tab_id):
+	match extension:
+		"c":
+			container.set_tab_icon(tab_id,c_source_icon)
+		"h":
+			container.set_tab_icon(tab_id,c_header_icon)
+			
+		"java":
+			container.set_tab_icon(tab_id,java_icon)
+		"py":
+			container.set_tab_icon(tab_id,python_icon)
+	
 # save changes to current file
 func save_file():
 	pass
