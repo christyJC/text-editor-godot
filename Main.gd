@@ -3,6 +3,7 @@ extends Control
 onready var tabs = $TabContainer
 onready var file_editor =  preload("res://FileEditor.tscn")
 onready var file_script = preload("res://FileEditor.gd")
+onready var icon_file = preload("res://icon.png")
 
 func _ready():
 	add_keybind_ctrl("new_tab", KEY_T)
@@ -98,16 +99,21 @@ func _on_OpenDialog_file_selected(path):
 	var curr_editor = tabs.get_child(curr_id)
 	# put the file contents in the current TextEdit
 	curr_editor.text = file.get_as_text()
-	
-	set_highlight(path,curr_editor)
-	
-	
-#/home/jakec/Documents/TextEditor/FileEditor.gd
 	file.close()
+	
+	var file_name = path.get_file() # get file name (words.txt)
+	var file_ext = file_name.get_extension() # get extension (.txt)
+	var no_ext_name = file_name.trim_suffix("."+file_ext) # get file name with extension (words)
+	
+	set_highlight(file_ext,curr_editor) # set syntac highlighting base on extension
+	curr_editor.name = no_ext_name # rename file editor to name of file
+	
+	tabs.set_tab_icon(curr_id,icon_file) # TODO create function do this base on extension
+	#TODO fix icon size changing size of tab
+	#TODO create icons for each file extension
 
-func set_highlight(path,editor):
-	var ext = path.get_extension()
-	match ext:
+func set_highlight(extension,editor):
+	match extension:
 		"c":
 			editor.c_default()
 		"h":
