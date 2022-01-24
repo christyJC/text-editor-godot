@@ -109,12 +109,15 @@ func _on_OpenDialog_file_selected(path):
 	var file_name = path.get_file() # get file name (words.txt)
 	var file_ext = file_name.get_extension() # get extension (.txt)
 	var file_no_dots = file_name.replace(".","_")
-	#string replace(what,forwhat)
+
 	set_highlight(file_ext,curr_editor) # set syntac highlighting base on extension
 	curr_editor.name = file_no_dots # rename file editor to name of file
+	curr_editor.set_file_path(path)
 	set_file_icon(file_ext,tabs,curr_id)
-
-	#TODO fix 
+	print(curr_editor.get_file_path())
+	
+	# TODO save file path of editor (for saving later)
+	# add a child LinEdit to the FileEditor, hide it, store path in FileEditor script
 
 func set_highlight(extension,editor):
 	match extension:

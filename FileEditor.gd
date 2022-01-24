@@ -15,6 +15,8 @@ var default_color_map = {
 		"comment" : Color.darkgray
 }
 
+var _file_path
+
 func _ready():
 	self.syntax_highlighting = true
 	self.show_line_numbers = true
@@ -23,7 +25,11 @@ func _ready():
 	self.minimap_draw = true
 	
 	
+func get_file_path():
+	return _file_path
 
+func set_file_path(path):
+	_file_path = path
 	
 	
 	
