@@ -44,4 +44,18 @@ access = 2
 current_dir = "/home/jakec/Documents/TextEditor"
 current_path = "/home/jakec/Documents/TextEditor/"
 
+[node name="SaveDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -289.0
+margin_top = -195.5
+margin_right = 289.0
+margin_bottom = 195.5
+access = 2
+current_dir = "/home/jakec/Documents/TextEditor"
+current_path = "/home/jakec/Documents/TextEditor/"
+
 [connection signal="file_selected" from="OpenDialog" to="." method="_on_OpenDialog_file_selected"]
+[connection signal="file_selected" from="SaveDialog" to="." method="_on_SaveDialog_file_selected"]

@@ -16,6 +16,7 @@ func _ready():
 	add_keybind_ctrl("next_tab",KEY_RIGHT)
 	add_keybind_ctrl("prev_tab",KEY_LEFT)
 	add_keybind_ctrl("open_file",KEY_O)
+	add_keybind_ctrl("save_file",KEY_S)
 	
 
 func _process(_delta):
@@ -30,6 +31,8 @@ func _process(_delta):
 		
 	if Input.is_action_just_pressed("open_file"):
 		open_file()
+	if Input.is_action_just_pressed("save_file"):
+		save_file(tabs)
 
 # adds input for Ctrl + key_code
 func add_keybind_ctrl(action,key_code):
@@ -97,7 +100,7 @@ func open_file():
 
 func _on_OpenDialog_file_selected(path):
 	var file = File.new()
-	file.open(path,1) # open file at path in read only mode
+	file.open(path,File.READ) # open file at path in read only mode
 	
 	# get the current editor 
 	var curr_id = tabs.current_tab 
@@ -108,16 +111,16 @@ func _on_OpenDialog_file_selected(path):
 	
 	var file_name = path.get_file() # get file name (words.txt)
 	var file_ext = file_name.get_extension() # get extension (.txt)
-	var file_no_dots = file_name.replace(".","_")
 
 	set_highlight(file_ext,curr_editor) # set syntac highlighting base on extension
-	curr_editor.name = file_no_dots # rename file editor to name of file
-	curr_editor.set_file_path(path)
+	set_tab_name(path,curr_editor)
 	set_file_icon(file_ext,tabs,curr_id)
-	print(curr_editor.get_file_path())
 	
-	# TODO save file path of editor (for saving later)
-	# add a child LinEdit to the FileEditor, hide it, store path in FileEditor script
+func set_tab_name(path,editor):
+	var file_name = path.get_file() # get file name (words.txt)
+	var file_no_dots = file_name.replace(".","_")
+	editor.name = file_no_dots
+	
 
 func set_highlight(extension,editor):
 	match extension:
@@ -144,9 +147,32 @@ func set_file_icon(extension,container,tab_id):
 			container.set_tab_icon(tab_id,python_icon)
 	
 # save changes to current file
-func save_file():
-	pass
+func save_file(container):
+	var curr_id = container.current_tab 
+	var curr_editor = container.get_child(curr_id)
+	var curr_path = curr_editor.get_file_path()
+	if curr_path == "":
+		$SaveDialog.popup()
 
+	else:
+		save_contents(curr_path,curr_editor)
+
+# overwrite the contents of the current file
+func save_contents(path,editor):
+	var file = File.new()
+	var file_contents = editor.text
+	print(editor.get_file_path())
+	file.open(path,File.WRITE)
+	file.store_string(file_contents)
+	file.close()
+
+# this runs when trying to save with no path selected
+func _on_SaveDialog_file_selected(path):
+	var curr_id = tabs.current_tab 
+	var curr_editor = tabs.get_child(curr_id)
+	curr_editor.set_file_path(path)
+	set_tab_name(path,curr_editor)
+	save_contents(path,curr_editor)
 
 # Preferences menu 
 # open a preferences menu
@@ -160,5 +186,7 @@ func pref_save():
 # restore preferences to defaults 
 func pref_restore():
 	pass
+
+
 
 

@@ -15,7 +15,7 @@ var default_color_map = {
 		"comment" : Color.darkgray
 }
 
-var _file_path
+var _file_path = ""
 
 func _ready():
 	self.syntax_highlighting = true
