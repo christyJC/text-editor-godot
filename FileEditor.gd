@@ -65,10 +65,13 @@ func python_default():
 	python_syntax(default_color_map)
 
 func python_syntax(color_map):
-	var keyword_list = ['def','class','import']
+	var keyword_list = ['def','class','import','from','as','None','del',
+	'global','nonlocal','lambda','yeild']
 	keywords_color(keyword_list,color_map["keyword"])
 	
-	var condition_list = ['if','elif','else','is','and','not','in']
+	var condition_list = ['True','False','if','elif','else',
+	'is','and','not','in','break','continue','pass','for','while','assert',
+	'try','raise','except','finally']
 	keywords_color(condition_list,color_map["keyword"])
 	
 	keywords_color(keyword_list,color_map["keyword"])
