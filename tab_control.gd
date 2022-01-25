@@ -5,6 +5,9 @@ extends TabContainer
 func _ready():
 	pass
 
+func editor_focus():
+	self.get_child(self.current_tab).grab_focus()
+
 # Tab control functions 
 # add a TextEdit node to tab container
 func new_tab(tab):
@@ -13,7 +16,7 @@ func new_tab(tab):
 	tab.name = "Untitled" + str(editor_count) # rename tab
 	self.add_child(tab)
 	self.current_tab = editor_count # set current tab to last tab
-	tab.grab_focus() #put cursor in editor
+	editor_focus()
 	
 
 # remove TextEdit node from tab container
@@ -35,6 +38,7 @@ func next_tab():
 			self.current_tab = 0
 		else:
 			self.current_tab = curr_tab + 1 # move right
+		editor_focus()
 		
 
 # cycle active TextEdit to the left
@@ -48,7 +52,8 @@ func prev_tab():
 			self.current_tab = last_tab
 		else:
 			self.current_tab = curr_tab - 1 # move left
-
+		editor_focus()
+		
 # check that at least one tab exists
 func tabs_exist():
 	return self.get_tab_count() > 0
