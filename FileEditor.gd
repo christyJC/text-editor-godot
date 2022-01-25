@@ -51,8 +51,13 @@ func java_default():
 	java_syntax(default_color_map)
 
 func java_syntax(color_map):
-	var keyword_list = ['int','long','float','double','public','private','protected','class','static']
+	var keyword_list = ['int','long','float','double','public','private','protected','class','static','enum']
 	keywords_color(keyword_list,color_map["keyword"])
+	var class_list = ['class','this','super','new','abstract','interface','implements']
+	keywords_color(class_list,color_map["keyword"])
+	var condition_list = ['if','else','for','while','try','throw','throws','finally','true','false','null',
+	'switch','case','default','break','continue']
+	keywords_color(condition_list,color_map["keyword"])
 	
 	comment_color('//','/*','*/',color_map["comment"])
 	
