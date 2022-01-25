@@ -5,8 +5,8 @@ onready var file_editor =  preload("res://FileEditor.tscn")
 onready var file_script = preload("res://FileEditor.gd")
 
 onready var editor_container = preload("res://EditorContainer.tscn")
-onready var tab_control = preload("res://tab_control.gd")
-onready var tab_container = editor_container.instance()
+
+
 
 onready var c_source_icon = preload("res://c_file.png")
 onready var c_header_icon = preload("res://c_header.png")
@@ -25,13 +25,13 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("new_tab"):
-		tab_container.new_tab(tabs,file_editor.instance())
+		tabs.new_tab(file_editor.instance())
 	if Input.is_action_just_pressed("close_tab"):
-		tab_container.close_tab(tabs)
+		tabs.close_tab()
 	if Input.is_action_just_pressed("next_tab"):
-		tab_container.next_tab(tabs)
+		tabs.next_tab()
 	if Input.is_action_just_pressed("prev_tab"):
-		tab_container.prev_tab(tabs)
+		tabs.prev_tab()
 		
 	if Input.is_action_just_pressed("open_file"):
 		open_file()
