@@ -35,6 +35,7 @@ func next_tab():
 			self.current_tab = 0
 		else:
 			self.current_tab = curr_tab + 1 # move right
+		
 
 # cycle active TextEdit to the left
 func prev_tab():
