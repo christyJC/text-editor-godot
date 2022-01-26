@@ -3,14 +3,6 @@ extends Control
 onready var tabs = $TabContainer
 onready var file_io = $FileDialogs
 onready var file_editor =  preload("res://FileEditor.tscn")
-onready var file_script = preload("res://FileEditor.gd")
-
-onready var editor_container = preload("res://EditorContainer.tscn")
-
-
-
-
-
 
 func _ready():
 	add_keybind_ctrl("new_tab", KEY_T)
@@ -20,21 +12,22 @@ func _ready():
 	add_keybind_ctrl("open_file",KEY_O)
 	add_keybind_ctrl("save_file",KEY_S)
 	
-
-func _process(_delta):
-	if Input.is_action_just_pressed("new_tab"):
+func _input(event):
+	if event.is_action_pressed("new_tab"):
 		tabs.new_tab(file_editor.instance())
-	if Input.is_action_just_pressed("close_tab"):
+		
+	if event.is_action_pressed("close_tab"):
 		tabs.close_tab()
-	if Input.is_action_just_pressed("next_tab"):
+	if event.is_action_pressed("next_tab"):
 		tabs.next_tab()
-	if Input.is_action_just_pressed("prev_tab"):
+	if event.is_action_pressed("prev_tab"):
 		tabs.prev_tab()
 		
-	if Input.is_action_just_pressed("open_file"):
+	if event.is_action_pressed("open_file"):
 		file_io.open_file()
-	if Input.is_action_just_pressed("save_file"):
+	if event.is_action_pressed("save_file"):
 		file_io.save_file()
+
 
 # adds input for Ctrl + key_code
 func add_keybind_ctrl(action,key_code):
@@ -43,10 +36,6 @@ func add_keybind_ctrl(action,key_code):
 	event.scancode = key_code
 	event.control = true # require holding Ctrl
 	InputMap.action_add_event(action,event)
-
-	
-
-
 
 # Preferences menu 
 # open a preferences menu
