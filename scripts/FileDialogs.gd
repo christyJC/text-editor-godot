@@ -1,9 +1,9 @@
 extends Control
 
-onready var c_source_icon = preload("res://c_file.png")
-onready var c_header_icon = preload("res://c_header.png")
-onready var java_icon = preload("res://java_file.png")
-onready var python_icon = preload("res://python_file.png")
+onready var c_source_icon = preload("res://icons/c_file.png")
+onready var c_header_icon = preload("res://icons/c_header.png")
+onready var java_icon = preload("res://icons/java_file.png")
+onready var python_icon = preload("res://icons/python_file.png")
 
 func _ready():
 	pass

@@ -2,7 +2,7 @@ extends Control
 
 onready var tabs = $TabContainer
 onready var file_io = $FileDialogs
-onready var file_editor =  preload("res://scenes/FileEditor.tscn")
+onready var file_editor =  preload("res://FileEditor.tscn")
 
 func _ready():
 	add_keybind_ctrl("new_tab", KEY_T)
