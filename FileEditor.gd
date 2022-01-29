@@ -25,13 +25,15 @@ func _ready():
 	self.minimap_draw = true
 	
 	
+	
 func get_file_path():
 	return _file_path
 
 func set_file_path(path):
 	_file_path = path
 	
-	
+func set_font_size(size):
+	self.get("custom_fonts/font").set_size(size)
 	
 func c_default():
 	c_syntax(default_color_map)
