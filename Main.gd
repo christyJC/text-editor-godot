@@ -3,6 +3,7 @@ extends Control
 onready var tabs = $TabContainer
 onready var file_io = $FileDialogs
 onready var file_editor =  preload("res://scenes/FileEditor.tscn")
+onready var editor_text= preload("res://scripts/EditorText.gd")
 
 func _ready():
 	add_keybind_ctrl("new_tab", KEY_T)
@@ -27,8 +28,9 @@ func _input(event):
 		file_io.open_file()
 	if event.is_action_pressed("save_file"):
 		file_io.save_file()
-
-
+	if event.is_action_pressed("select"):
+		editor_text.snippet(tabs.get_child(tabs.current_tab))
+	
 # adds input for Ctrl + key_code
 func add_keybind_ctrl(action,key_code):
 	InputMap.add_action(action)
