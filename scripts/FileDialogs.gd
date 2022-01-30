@@ -36,6 +36,7 @@ func _on_OpenDialog_file_selected(path):
 	
 func set_tab_name(path,editor):
 	var file_name = path.get_file() # get file name (words.txt)
+	editor.set_file_path(file_name)
 	var file_no_dots = file_name.replace(".","_")
 	editor.name = file_no_dots
 	

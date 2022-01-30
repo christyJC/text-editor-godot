@@ -7,24 +7,38 @@ static func snippet(editor,ext):
 		
 		editor.cursor_set_column(curr_col-1)
 		var word = editor.get_word_under_cursor()
-		if word == "main":
+		var output = ""
+		print(ext)
+		
+		if ext == "c":
+			output = _c_snippets(word)
+		if ext == "java":
+			output = _java_snippets(word)
+		if ext == "py":
+			output = _python_snippets(word)
+			
+			
+		if output != "":
 			var length = word.length()
 			editor.select(curr_row,curr_col-length,curr_row,curr_col)
-			editor.insert_text_at_cursor("int main(args)")
+			editor.insert_text_at_cursor(output)
 		else:
 			editor.cursor_set_column(curr_col)
+			
 
-func c_snippets(editor,word):
+static func _c_snippets(word):
+	var result = ""
 	match word:
 		"main":
-			pass
+			result = "int main(int argc, char *argv[]){\n\n}"
 		"inc":
 			pass
 		"if":
 			pass
+	return result
 	
-func java_snippets(editor,word):
+static func _java_snippets(word):
 	pass
-func python_snippets(editor,word):
+static func _python_snippets(word):
 	pass
 	
