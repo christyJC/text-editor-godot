@@ -31,7 +31,6 @@ func _input(event):
 	if event.is_action_pressed("select"):
 		var curr_editor = tabs.get_child(tabs.current_tab)
 		var curr_ext = curr_editor.get_file_path().get_extension()
-		print("this:"+curr_ext)
 		editor_text.snippet(curr_editor,curr_ext)
 	
 # adds input for Ctrl + key_code

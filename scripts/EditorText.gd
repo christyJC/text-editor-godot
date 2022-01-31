@@ -32,9 +32,17 @@ static func _c_snippets(word):
 		"main":
 			result = "int main(int argc, char *argv[]){\n\n}"
 		"inc":
-			pass
+			result = "#include "
 		"if":
-			pass
+			result = "if(){\n\n}"
+		"elif":
+			result = "else if(){\n\n}"
+		"el":
+			result = "else{\n\n}"
+		"for":
+			result = "for(;;){\n\n}"
+		"while":
+			result = "while(){\n\n}"
 	return result
 	
 static func _java_snippets(word):
