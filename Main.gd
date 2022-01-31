@@ -30,8 +30,7 @@ func _input(event):
 		file_io.save_file()
 	if event.is_action_pressed("snippet"): # added from input map in project settings
 		var curr_editor = tabs.get_child(tabs.current_tab)
-		var curr_ext = curr_editor.get_file_path().get_extension()
-		editor_text.snippet(curr_editor,curr_ext)
+		editor_text.snippet(curr_editor)
 		
 	
 # adds input for Ctrl + key_code

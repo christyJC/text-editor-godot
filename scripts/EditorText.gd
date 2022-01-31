@@ -1,7 +1,8 @@
 extends TextEdit
 
 
-static func snippet(editor,ext):
+static func snippet(editor):
+		var ext = editor.get_file_path().get_extension()
 		var curr_col = editor.cursor_get_column()
 		var curr_row = editor.cursor_get_line()
 	
