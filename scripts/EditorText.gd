@@ -43,13 +43,32 @@ static func _c_snippets(word):
 		"el":
 			result = "else{\n\n}"
 		"for":
-			result = "for(;;){\n\n}"
+			result = "for(; ; ){\n\n}"
 		"while":
 			result = "while(){\n\n}"
 	return result
 	
 static func _java_snippets(word):
-	pass
+	var result = ""
+	match word:
+		"main":
+			result = "public static void main(String[] args){\n\n}"
+		"im":
+			result = "import java.util.;"
+		"if":
+			result = "if(){\n\n}"
+		"elif":
+			result = "else if(){\n\n}"
+		"el":
+			result = "else{\n\n}"
+		"for":
+			result = "for(; ; ){\n\n}"
+		"each":
+			result = "for(: ){\n\n}"
+		"while":
+			result = "while(){\n\n}"
+	return result
+	
 static func _python_snippets(word):
 	pass
 	
