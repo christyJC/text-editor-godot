@@ -69,6 +69,23 @@ static func _java_snippets(word):
 			result = "while(){\n\n}"
 	return result
 	
+	# TODO: finish and commit
 static func _python_snippets(word):
-	pass
-	
+	var result = ""
+	match word:
+		
+		"im":
+			result = "import "
+		"if":
+			result = "if(){\n\n}"
+		"elif":
+			result = "else if(){\n\n}"
+		"el":
+			result = "else{\n\n}"
+		"for":
+			result = "for(; ; ){\n\n}"
+		"each":
+			result = "for(: ){\n\n}"
+		"while":
+			result = "while(){\n\n}"
+	return result
