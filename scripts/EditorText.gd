@@ -4,11 +4,10 @@ extends TextEdit
 static func snippet(editor,ext):
 		var curr_col = editor.cursor_get_column()
 		var curr_row = editor.cursor_get_line()
-		
+	
 		editor.cursor_set_column(curr_col-1)
 		var word = editor.get_word_under_cursor()
 		var output = ""
-		print(ext)
 		
 		if ext == "c":
 			output = _c_snippets(word)
@@ -22,9 +21,12 @@ static func snippet(editor,ext):
 			var length = word.length()
 			editor.select(curr_row,curr_col-length,curr_row,curr_col)
 			editor.insert_text_at_cursor(output)
+			
+			
 		else:
 			editor.cursor_set_column(curr_col)
 			
+
 
 static func _c_snippets(word):
 	var result = ""

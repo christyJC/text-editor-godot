@@ -23,6 +23,7 @@ func _ready():
 	self.size_flags_horizontal = SIZE_EXPAND_FILL
 	self.size_flags_vertical = SIZE_EXPAND_FILL
 	self.minimap_draw = true
+	self.draw_tabs = true
 	
 	
 	
